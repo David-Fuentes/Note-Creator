@@ -1,0 +1,81 @@
+﻿<Window x:Class="Note_Creator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Note_Creator"
+        xmlns:cc="clr-namespace:Note_Creator.Controls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisConverter"/>
+    </Window.Resources>
+    
+    <Grid Margin="15px">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer>
+            <StackPanel Grid.Column="0"
+                    Margin="0 0 15 0">
+                <cc:CheckBoxEntry LabelContent="Verified?" x:Name="Verified"/>
+                <cc:TextBoxEntry LabelContent="Name of caller (if not owner)" x:Name="CustomerName"/>
+
+                <cc:CollapsibleContent LabelContent="Updated account info?">
+                    <cc:CollapsibleContent.CollapseContent>
+                        <StackPanel Margin="15 0 0 0">
+                            <cc:CollapsibleContent LabelContent="Email">
+                                <cc:CollapsibleContent.CollapseContent>
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Old email"/>
+                                            <TextBox Width="150"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="New email"/>
+                                            <TextBox Width="150"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </cc:CollapsibleContent.CollapseContent>
+                            </cc:CollapsibleContent>
+
+                            <cc:CheckBoxEntry LabelContent="Shipping Address"/>
+                        </StackPanel>
+                    </cc:CollapsibleContent.CollapseContent>
+                </cc:CollapsibleContent>
+
+                <cc:CheckBoxEntry LabelContent="Computer Restarted?"/>
+                <cc:CheckBoxEntry LabelContent="Signed In?"/>
+                <cc:CheckBoxEntry LabelContent="Logos/Verbum up to date?"/>
+                <cc:CheckBoxEntry LabelContent="OS up to date?"/>
+
+                <cc:CollapsibleContent LabelContent="Problem with resource?">
+                    <cc:CollapsibleContent.CollapseContent>
+                        <StackPanel>
+                            <cc:TextBoxEntry LabelContent="Name of resource: "/>
+                            <cc:CheckBoxEntry LabelContent="Owns the resource?"/>
+                            <cc:CheckBoxEntry LabelContent="Resource is downloaded?"/>
+                        </StackPanel>
+                    </cc:CollapsibleContent.CollapseContent>
+                </cc:CollapsibleContent>
+
+                <cc:CheckBoxEntry LabelContent="Sent training?"/>
+                <cc:CheckBoxEntry LabelContent="Offered?"/>
+                <Label Content="Additional Notes:"/>
+                <TextBox TextChanged="TextBox_TextChanged" Height="auto" Width="auto"/>
+            </StackPanel>
+
+        </ScrollViewer>
+
+        <TextBox x:Name="textbox_Result"
+                 Grid.Column="1"
+                 Padding="5px"
+                 Text="{Binding Result}">
+        </TextBox>
+
+        
+
+    </Grid>
+</Window>
