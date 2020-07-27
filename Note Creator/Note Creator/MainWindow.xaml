@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:Note_Creator"
         xmlns:cc="clr-namespace:Note_Creator.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Note Taker" Height="600" Width="800">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisConverter"/>
     </Window.Resources>
-    
+
     <Grid Margin="15px">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -20,62 +20,62 @@
         <ScrollViewer>
             <StackPanel Grid.Column="0"
                     Margin="0 0 15 0">
-                <cc:CheckBoxEntry LabelContent="Verified?" x:Name="Verified"/>
-                <cc:TextBoxEntry LabelContent="Name of caller (if not owner)" x:Name="CustomerName"/>
+                <cc:CheckBoxEntry LabelContent="Verified?" x:Name="Checkbox_Verified"/>
+                <cc:TextBoxEntry LabelContent="Name of caller" x:Name="Textbox_CustomerName"/>
 
-                <cc:CollapsibleContent LabelContent="Updated account info?">
-                    <cc:CollapsibleContent.CollapseContent>
-                        <StackPanel Margin="15 0 0 0">
-                            <cc:CollapsibleContent LabelContent="Email">
-                                <cc:CollapsibleContent.CollapseContent>
-                                    <StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="Old email"/>
-                                            <TextBox Width="150"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="New email"/>
-                                            <TextBox Width="150"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </cc:CollapsibleContent.CollapseContent>
-                            </cc:CollapsibleContent>
-
-                            <cc:CheckBoxEntry LabelContent="Shipping Address"/>
-                        </StackPanel>
-                    </cc:CollapsibleContent.CollapseContent>
-                </cc:CollapsibleContent>
-
-                <cc:CheckBoxEntry LabelContent="Computer Restarted?"/>
-                <cc:CheckBoxEntry LabelContent="Signed In?"/>
-                <cc:CheckBoxEntry LabelContent="Logos/Verbum up to date?"/>
-                <cc:CheckBoxEntry LabelContent="OS up to date?"/>
-
-                <cc:CollapsibleContent LabelContent="Problem with resource?">
-                    <cc:CollapsibleContent.CollapseContent>
-                        <StackPanel>
-                            <cc:TextBoxEntry LabelContent="Name of resource: "/>
-                            <cc:CheckBoxEntry LabelContent="Owns the resource?"/>
-                            <cc:CheckBoxEntry LabelContent="Resource is downloaded?"/>
-                        </StackPanel>
-                    </cc:CollapsibleContent.CollapseContent>
-                </cc:CollapsibleContent>
-
-                <cc:CheckBoxEntry LabelContent="Sent training?"/>
-                <cc:CheckBoxEntry LabelContent="Offered?"/>
-                <Label Content="Additional Notes:"/>
-                <TextBox TextChanged="TextBox_TextChanged" Height="auto" Width="auto"/>
+                <Expander Header="Update account info?" x:Name="Expander_AccountInfo" IsExpanded="False">
+                    <StackPanel Margin="15 0 0 0">
+                        <Expander Header="Email" x:Name="Expander_Email" IsExpanded="False">
+                            <StackPanel Margin="15 0 0 0">
+                                <cc:TextBoxEntry LabelContent="Old email" x:Name="Textbox_OldEmail"/>
+                                <cc:TextBoxEntry LabelContent="New email" x:Name="Textbox_NewEmail"/>
+                            </StackPanel>
+                        </Expander>
+                        <cc:CheckBoxEntry LabelContent="Shipping address" x:Name="Checkbox_ShippingAddress"/>
+                        <cc:CheckBoxEntry LabelContent="Sent password reset" x:Name="Checkbox_PasswordReset"/>
+                    </StackPanel>
+                </Expander>
+                <cc:CheckBoxEntry LabelContent="Computer restarted?" x:Name="Checkbox_ComputerRestarted"/>
+                <cc:CheckBoxEntry LabelContent="Signed into software?" x:Name="Checkbox_SignedIn"/>
+                <cc:TextBoxEntry LabelContent="Software version number" x:Name="Textbox_VersionNumber"/>
+                <cc:CheckBoxEntry LabelContent="OS up to date?" x:Name="Checkbox_OSUpdated"/>
+                <cc:CheckBoxEntry LabelContent="Sent training?" x:Name="Checkbox_SentTraining"/>
+                <cc:CheckBoxEntry LabelContent="Offered?" x:Name="Checkbox_Offered"/>
+                <Label Content="Steps taken:"/>
+                <TextBox TextChanged="AdditionalNotes_TextChanged" 
+                         Height="100px" 
+                         Width="auto"
+                         AcceptsReturn="True"
+                         VerticalScrollBarVisibility="Auto"
+                         x:Name="AdditionalNotes"/>
             </StackPanel>
 
         </ScrollViewer>
-
-        <TextBox x:Name="textbox_Result"
-                 Grid.Column="1"
-                 Padding="5px"
-                 Text="{Binding Result}">
-        </TextBox>
-
-        
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="9*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
+            <TextBox Padding="5px" 
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto"
+                     TextChanged="NoteBox_TextChanged"
+                     Text="{Binding Result}">
+            </TextBox>
+            <Button Content="Copy to clipboard"
+                    Grid.Row="1"
+                    HorizontalAlignment="Right"
+                    x:Name="CopyButton"
+                    Margin="0 10"
+                    Click="CopyButton_Click"/>
+            <Label Content="Note copied!"
+                   Grid.Row="2"
+                   HorizontalAlignment="Right"
+                   x:Name="CopyMessage"
+                   Visibility="Hidden"/>
+        </Grid>
 
     </Grid>
 </Window>
